@@ -37,7 +37,7 @@ class BotPlayer(Player):
             rc.spawn_unit(UnitType.KNIGHT, ally_castle_id)
             self.knightCount += 1
 
-        print(self.knightCount)
+        # print(self.knightCount)
         enemy_buildings = rc.get_buildings(enemy)
         for building in enemy_buildings:
             if building.type == BuildingType.MAIN_CASTLE:
@@ -50,37 +50,38 @@ class BotPlayer(Player):
 
 
    
-        if rc.can_spawn_unit(UnitType.KNIGHT, ally_castle_id) and rc.get_units(team) == []:
-            rc.spawn_unit(UnitType.KNIGHT, ally_castle_id)
+        # if rc.can_spawn_unit(UnitType.WARRIOR, ally_castle_id) and rc.get_units(team) == []:
+        #     rc.spawn_unit(UnitType.WARRIOR, ally_castle_id)
 
         enemy_units = rc.get_units(enemy)
         for e_unit in enemy_units:
-            if e_unit.type == UnitType.SWORDSMAN:
-                enemy_id = rc.get_id_from_unit(e_unit)[1]
-                enemy_knight = rc.get_unit_from_id(enemy_id)
-                if enemy_knight is None: 
-                    continue
-                # loop through all the units
-                for unit_id in my_units:
+        
+            enemy_id = rc.get_id_from_unit(e_unit)[1]
+            enemy_knight = rc.get_unit_from_id(enemy_id)
+            if enemy_knight is None: 
+                continue
+            # loop through all the units
+            for unit_id in my_units:
 
-                    # if castle still stands and can attack castle, attack castle
-                    if rc.can_unit_attack_unit(unit_id, enemy_id):
-                        rc.unit_attack_unit(unit_id, enemy_id)
-
-                    # if can move towards castle, move towards castle
-                    unit = rc.get_unit_from_id(unit_id)
-                    if unit is None:
-                        return
+                # if castle still stands and can attack castle, attack castle
+                if rc.can_unit_attack_unit(unit_id, enemy_id):
                     
-                    possible_move_dirs = rc.unit_possible_move_directions(unit_id)
-                    possible_move_dirs.sort(key= lambda dir: rc.get_chebyshev_distance(*rc.new_location(unit.x, unit.y, dir), enemy_knight.x, enemy_knight.y))
+                    rc.unit_attack_unit(unit_id, enemy_id)
 
-                    best_dir = possible_move_dirs[0] if len(possible_move_dirs) > 0 else Direction.STAY #least chebyshev dist direction
+                # if can move towards castle, move towards castle
+                unit = rc.get_unit_from_id(unit_id)
+                if unit is None:
+                    return
+                
+                possible_move_dirs = rc.unit_possible_move_directions(unit_id)
+                possible_move_dirs.sort(key= lambda dir: rc.get_chebyshev_distance(*rc.new_location(unit.x, unit.y, dir), enemy_knight.x, enemy_knight.y))
 
-                    if rc.can_move_unit_in_direction(unit_id, best_dir):
-                        rc.move_unit_in_direction(unit_id, best_dir)
-        
-        
+                best_dir = possible_move_dirs[0] if len(possible_move_dirs) > 0 else Direction.STAY #least chebyshev dist direction
+
+                if rc.can_move_unit_in_direction(unit_id, best_dir):
+                    rc.move_unit_in_direction(unit_id, best_dir)
+    
+    
         # stage 1 : Defense/build phase
 
 

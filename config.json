@@ -2,7 +2,7 @@
     "players": [
         {
             "blue": "something_bot",
-            "red": "nothing"
+            "red": "squire_bot"
         }
     ],
     "map": "simple_map"
