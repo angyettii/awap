@@ -8,7 +8,7 @@ from src.buildings import Building
 
 class BotPlayer(Player):
     def __init__(self, map: Map):
-        pass
+        self.map = map
     
     def play_turn(self, rc: RobotController):
         return 42
