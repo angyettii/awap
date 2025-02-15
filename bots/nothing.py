@@ -33,10 +33,11 @@ class BotPlayer(Player):
         enemy_castle_id = -1
 
 
-        if rc.can_spawn_unit(UnitType.KNIGHT, ally_castle_id) and self.knightCount == 0:
+        if rc.can_spawn_unit(UnitType.KNIGHT, ally_castle_id) and self.knightCount <= 2:
             rc.spawn_unit(UnitType.KNIGHT, ally_castle_id)
             self.knightCount += 1
 
+        print(self.knightCount)
         enemy_buildings = rc.get_buildings(enemy)
         for building in enemy_buildings:
             if building.type == BuildingType.MAIN_CASTLE:
@@ -54,7 +55,7 @@ class BotPlayer(Player):
 
         enemy_units = rc.get_units(enemy)
         for e_unit in enemy_units:
-            if e_unit.type == UnitType.KNIGHT:
+            if e_unit.type == UnitType.SWORDSMAN:
                 enemy_id = rc.get_id_from_unit(e_unit)[1]
                 enemy_knight = rc.get_unit_from_id(enemy_id)
                 if enemy_knight is None: 

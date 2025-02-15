@@ -9,7 +9,7 @@ from src.buildings import Building
 class BotPlayer(Player):
     def __init__(self, map: Map):
         self.map = map
-        self.knightCount = 0
+        self.swordsCount = 0
     
     def play_turn(self, rc: RobotController):
         
@@ -31,9 +31,9 @@ class BotPlayer(Player):
         enemy_castle_id = -1
 
 
-        if rc.can_spawn_unit(UnitType.KNIGHT, ally_castle_id) and self.knightCount == 0:
-            rc.spawn_unit(UnitType.KNIGHT, ally_castle_id)
-            self.knightCount += 1
+        if rc.can_spawn_unit(UnitType.SWORDSMAN, ally_castle_id) and self.swordsCount == 0:
+            rc.spawn_unit(UnitType.SWORDSMAN, ally_castle_id)
+            self.swordsCount += 1
 
 
 
