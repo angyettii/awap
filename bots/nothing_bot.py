@@ -11,4 +11,4 @@ class BotPlayer(Player):
         pass
     
     def play_turn(self, rc: RobotController):
-        return
+        return 42
